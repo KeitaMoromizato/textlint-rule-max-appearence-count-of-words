@@ -6,7 +6,10 @@ const defaultOptions = {
 };
 
 function filterToken(token) {
-  return token.pos === '名詞' && token.pos_detail_1 !== '数' && token.pos_detail_1 !== '非自立';
+  return token.pos === '名詞'
+    && token.pos_detail_1 !== '数'
+    && token.pos_detail_1 !== '非自立'
+    && token.surface_form.length > 1;
 }
 
 function formatReport(word, count, limit) {
