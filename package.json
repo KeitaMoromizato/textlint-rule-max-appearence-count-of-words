@@ -4,7 +4,7 @@
     "type": "git",
     "url": "https://github.com/KeitaMoromizato/textlint-rule-max-appearence-count-of-words.git"
   },
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "textlint rule that check maximum appearance count of words in paragraph",
   "main": "lib/max-appearence-count-of-words.js",
   "scripts": {
