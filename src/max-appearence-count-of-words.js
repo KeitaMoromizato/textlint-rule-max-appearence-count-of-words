@@ -2,7 +2,8 @@ import _ from 'lodash';
 import {getTokenizer} from 'kuromojin';
 
 const defaultOptions = {
-  limit: 4
+  limit: 4,
+  lang: 'en'
 };
 
 function filterToken(token) {
@@ -12,8 +13,13 @@ function filterToken(token) {
     && token.surface_form.length > 1;
 }
 
-function formatReport(word, count, limit) {
-  return `${word} appears over ${limit} count in Paragraph ${count}`
+function formatReport(word, count, limit, lang = 'en') {
+  switch(lang) {
+    case 'ja':
+      return `「${word}」が${count}段落目で${limit}回以上登場しています。`;
+    default:
+      return `${word} appears over ${limit} count in Paragraph ${count}`;
+  }
 }
 
 export default function (context, options = {}) {
@@ -35,7 +41,7 @@ export default function (context, options = {}) {
               .uniq(token => token.surface_form)
               .filter(filterToken)
               .filter(token => (paragraph.split(token.surface_form).length - 1) > options.limit)
-              .forEach(token => report(node, new RuleError(formatReport(token.surface_form, paragraphCount, options.limit))))
+              .forEach(token => report(node, new RuleError(formatReport(token.surface_form, paragraphCount, options.limit, options.lang))))
               .value();
           });
         }

@@ -50,5 +50,23 @@ describe('max-appearence-count-of-words', function() {
 
       }).then(done, done);
     });
+
+    it('should report in Japanese', done => {
+      textlint.setupRules({
+        'max-appearence-count-of-words': rule
+      },{
+        'max-appearence-count-of-words': {
+          limit: 4,
+          lang: 'ja'
+        }
+      });
+
+      textlint.lintFile('./test/fixtures/sample.md').then(result => {
+
+        assert(result.messages.length === 1);
+        assert(result.messages[0].message === '「パラグラフ」が1段落目で4回以上登場しています。');
+
+      }).then(done, done);
+    })
   });
 });
